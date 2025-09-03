@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movie_plex/common_widgets/customButton.dart';
 import 'package:movie_plex/core/constants/app_colors.dart';
 import 'package:movie_plex/data/models/movie_model.dart';
-import 'package:movie_plex/features/movie_detail/Provider/detailProvider.dart';
+import 'package:movie_plex/features/movie_detail/providers/detailProvider.dart';
 import 'package:movie_plex/features/movie_detail/widgets/StatCard.dart';
+import 'package:movie_plex/features/movie_detail/widgets/movie_gallery.dart';
 import 'package:movie_plex/features/movie_detail/widgets/roundIcons.dart';
 import 'package:provider/provider.dart';
 
@@ -23,22 +25,23 @@ class _MovieDetailExactState extends State<MovieDetailExact> {
     super.initState();
     // Start listening to sensors when the widget is initialized
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final sensorProvider = Provider.of<SensorProvider>(context, listen: false);
-      sensorProvider.startListening();
+      // final sensorProvider = Provider.of<SensorProvider>(context, listen: false);
+      // sensorProvider.startListening();
     });
   }
 
   @override
   void dispose() {
     // Stop listening to sensors when the widget is disposed
-    final sensorProvider = Provider.of<SensorProvider>(context, listen: false);
-    sensorProvider.stopListening();
+    // final sensorProvider = Provider.of<SensorProvider>(context, listen: false);
+    // sensorProvider.stopListening();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final w = MediaQuery.of(context).size.width;
+    final h = MediaQuery.of(context).size.height;
     final sensorProvider = Provider.of<SensorProvider>(context);
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
@@ -77,10 +80,10 @@ class _MovieDetailExactState extends State<MovieDetailExact> {
                           'Movie Detail',
                           textAlign: TextAlign.center,
                           style: GoogleFonts.poppins(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
                             color: AppColors.text,
-                            letterSpacing: 0.2,
+                            fontSize: 18,
+                            letterSpacing: 0.5,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                       ),
@@ -94,7 +97,7 @@ class _MovieDetailExactState extends State<MovieDetailExact> {
 
                 Expanded(
                   child: SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(horizontal: 18),
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -102,16 +105,11 @@ class _MovieDetailExactState extends State<MovieDetailExact> {
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // Poster with parallax effect
-                            Transform(
-                              transform: Matrix4.identity()
-                                ..setEntry(3, 2, 0.001) // Perspective
-                                ..rotateX(sensorProvider.y)
-                                ..rotateY(-sensorProvider.x),
-                              alignment: FractionalOffset.center,
+                            // Poster - fixed size
+                            SizedBox(
+                              width: w * 0.54,
+                              height: h * 0.4,
                               child: Container(
-                                width: w * 0.54,
-                                height: w * 0.72,
                                 decoration: BoxDecoration(
                                   color: AppColors.surface,
                                   borderRadius: BorderRadius.circular(18),
@@ -124,42 +122,49 @@ class _MovieDetailExactState extends State<MovieDetailExact> {
                                   ],
                                 ),
                                 clipBehavior: Clip.antiAlias,
-                                child: Image.asset(
-                                  widget.movie.img,
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return Container(
-                                      color: AppColors.surfaceAlt,
-                                      child: const Icon(
-                                        Icons.movie_rounded,
-                                        color: AppColors.subtext,
-                                      ),
-                                    );
-                                  },
+                                child: Hero(
+                                  tag: widget.movie.img,
+                                  child: Image.asset(
+                                    widget.movie.img,
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Container(
+                                        color: AppColors.surfaceAlt,
+                                        child: const Icon(
+                                          Icons.movie_rounded,
+                                          color: AppColors.subtext,
+                                        ),
+                                      );
+                                    },
+                                  ),
                                 ),
                               ),
                             ),
-                            const SizedBox(width: 14),
-                            // Right Stat Cards
+
+                            const SizedBox(width: 16), // fixed spacing
+                            // Stat Cards Column - takes max available width
                             Expanded(
                               child: Column(
+                                crossAxisAlignment:
+                                    CrossAxisAlignment.stretch, // make cards fill width
+                                mainAxisSize: MainAxisSize.min,
                                 children: [
                                   StatCard(
-                                    icon: Icons.theaters_rounded,
+                                    icon: "assets/icons/imdb-icon.png",
+                                    title: 'Ratings',
+                                    value: widget.movie.rating,
+                                  ),
+                                  const SizedBox(height: 12),
+                                  StatCard(
+                                    icon: "assets/icons/video-icon.png",
                                     title: 'Genre',
-                                    value: widget.movie.genre.join(', '),
+                                    value: '${widget.movie.genre[0]}',
                                   ),
                                   const SizedBox(height: 12),
                                   StatCard(
-                                    icon: Icons.attach_money_rounded,
-                                    title: 'Price',
-                                    value: '\$${widget.movie.price}',
-                                  ),
-                                  const SizedBox(height: 12),
-                                  StatCard(
-                                    icon: Icons.people_rounded,
-                                    title: 'Cast',
-                                    value: '${widget.movie.actorList.length} actors',
+                                    icon: "assets/icons/watch.png",
+                                    title: 'Duration',
+                                    value: '${widget.movie.duration} ',
                                   ),
                                 ],
                               ),
@@ -169,12 +174,14 @@ class _MovieDetailExactState extends State<MovieDetailExact> {
 
                         const SizedBox(height: 22),
 
-                        Text(
-                          widget.movie.title,
-                          style: GoogleFonts.poppins(
-                            color: AppColors.text,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
+                        Center(
+                          child: Text(
+                            widget.movie.title,
+                            style: GoogleFonts.poppins(
+                              color: AppColors.text,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ),
 
@@ -185,6 +192,7 @@ class _MovieDetailExactState extends State<MovieDetailExact> {
                           style: GoogleFonts.poppins(
                             color: AppColors.text,
                             fontSize: 16,
+                            letterSpacing: 0.5,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -194,8 +202,8 @@ class _MovieDetailExactState extends State<MovieDetailExact> {
                           widget.movie.description,
                           style: GoogleFonts.poppins(
                             color: AppColors.subtext,
-                            height: 1.55,
-                            fontSize: 13.8,
+                            height: 1.3,
+                            fontSize: 13,
                             fontWeight: FontWeight.w400,
                           ),
                         ),
@@ -214,26 +222,23 @@ class _MovieDetailExactState extends State<MovieDetailExact> {
                         const SizedBox(height: 12),
 
                         SizedBox(
-                          height: 80,
+                          height: 70,
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
                             itemCount: widget.movie.actorList.length,
                             itemBuilder: (context, index) {
-                              return Container(
-                                width: 60,
-                                height: 60,
-                                margin: const EdgeInsets.only(right: 12),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12),
-                                  border: Border.all(color: AppColors.line),
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(12),
+                              return Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: ClipOval(
                                   child: Image.asset(
                                     widget.movie.actorList[index],
+                                    width: 70, // make sure width & height are equal
+                                    height: 50,
                                     fit: BoxFit.cover,
                                     errorBuilder: (context, error, stackTrace) {
                                       return Container(
+                                        width: 60,
+                                        height: 60,
                                         color: AppColors.surfaceAlt,
                                         child: const Icon(Icons.person, color: AppColors.subtext),
                                       );
@@ -245,47 +250,44 @@ class _MovieDetailExactState extends State<MovieDetailExact> {
                           ),
                         ),
 
-                        const SizedBox(height: 110),
+                        const SizedBox(height: 24),
+
+                        // Actors section
+                        Text(
+                          'Gallery',
+                          style: GoogleFonts.poppins(
+                            color: AppColors.text,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        Gallery(context, widget.movie),
+                        const SizedBox(height: 12),
                       ],
                     ),
                   ),
                 ),
 
                 // Bottom CTA
-                Container(
-                  decoration: const BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(color: Colors.black87, blurRadius: 24, offset: Offset(0, -8)),
-                    ],
-                  ),
-                  padding: const EdgeInsets.fromLTRB(18, 10, 18, 20),
-                  child: SizedBox(
-                    width: w * 0.6,
-                    height: 56,
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        color: AppColors.pill,
-                        borderRadius: BorderRadius.circular(28),
-                        boxShadow: const [
-                          BoxShadow(color: Color(0x66FFB43A), blurRadius: 18, offset: Offset(0, 8)),
-                        ],
-                      ),
-                      child: TextButton(
-                        style: TextButton.styleFrom(
-                          foregroundColor: Colors.black,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
-                        ),
-                        onPressed: () {},
-                        child: Text(
-                          'Get Reservation',
-                          style: GoogleFonts.poppins(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                            letterSpacing: 0.2,
-                          ),
-                        ),
-                      ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: CustomButton(
+                    hasIcon: true,
+                    icon: "assets/icons/ticket.png",
+                    height: 50,
+                    gradient: LinearGradient(
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
+                      colors: [
+                        Color(0xFFFFA726), // base amber orange
+                        Color.fromARGB(255, 173, 93, 13), // deeper, muted burnt orange
+                      ],
                     ),
+                    textColor: Color.fromARGB(255, 43, 43, 43),
+                    text: 'Buy Now',
+                    press: () {},
+                    size: 16,
                   ),
                 ),
               ],

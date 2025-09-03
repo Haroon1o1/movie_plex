@@ -17,12 +17,15 @@ class PosterWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Hero(
-          tag: items.img,
-          child: GestureDetector(
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => MovieDetailExact(movie: items,)));
-            },
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => MovieDetailExact(movie: items)),
+            );
+          },
+          child: Hero(
+            tag: items.img,
             child: Container(
               height: h * 0.50,
               width: w * 0.7,
@@ -43,6 +46,7 @@ class PosterWidget extends StatelessWidget {
             ),
           ),
         ),
+
         SizedBox(height: h * 0.03),
         Text(
           items.title,

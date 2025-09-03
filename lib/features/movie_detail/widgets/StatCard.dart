@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_plex/core/constants/app_colors.dart';
 
 class StatCard extends StatelessWidget {
-  final IconData icon;
+  final String icon;
   final String title;
   final String value;
 
@@ -12,38 +12,37 @@ class StatCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 86,
+      alignment: Alignment.center,
+      height: MediaQuery.of(context).size.height * 0.124,
+      width: MediaQuery.of(context).size.width * 0.24,
       decoration: BoxDecoration(
-        color: AppColors.surfaceAlt,
+        color: Colors.transparent, // transparent frosted effect
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.line),
-        boxShadow: const [BoxShadow(color: Colors.black87, blurRadius: 16, offset: Offset(0, 10))],
+        border: Border.all(
+          color: Colors.white.withOpacity(0.25), // soft matte white border
+          width: 1.2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.3), // shadow for depth
+            blurRadius: 16,
+            offset: const Offset(0, 8),
+          ),
+        ],
       ),
       padding: const EdgeInsets.all(12),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Row(
-            children: [
-              Container(
-                width: 28,
-                height: 28,
-                decoration: BoxDecoration(
-                  color: const Color(0x1AFFFFFF),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Icon(icon, size: 16, color: AppColors.text),
-              ),
-              const Spacer(),
-              Icon(Icons.chevron_right_rounded, size: 20, color: AppColors.subtext),
-            ],
-          ),
-          const SizedBox(height: 8),
+          Image.asset(icon, width: 24),
+
+          SizedBox(height: 8),
           Text(
             title,
             style: GoogleFonts.poppins(
               color: AppColors.subtext,
-              fontSize: 9,
+              fontSize: 10,
               fontWeight: FontWeight.w500,
             ),
             overflow: TextOverflow.ellipsis,
@@ -54,7 +53,7 @@ class StatCard extends StatelessWidget {
             value,
             style: GoogleFonts.poppins(
               color: AppColors.text,
-              fontSize: 8,
+              fontSize: 12, // bumped for readability
               fontWeight: FontWeight.w700,
             ),
             overflow: TextOverflow.ellipsis,

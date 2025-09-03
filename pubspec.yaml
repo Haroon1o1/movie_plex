@@ -37,7 +37,8 @@ dependencies:
   provider: ^6.1.5+1
   google_fonts: ^6.3.1
   shimmer: ^3.0.0
-  sensors_plus: ^6.1.2
+  url_launcher: ^6.3.2
+  # sensors_plus: ^6.1.2
 
 dev_dependencies:
   flutter_test:
@@ -66,6 +67,7 @@ flutter:
     - assets/img/
     - assets/icons/
     - assets/svg_icons/
+    - assets/movies/
     - assets/actorImg/
   #   - images/a_dot_ham.jpeg
 
