@@ -1,11 +1,46 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_plex/core/utils/theme_provider.dart';
 import 'package:movie_plex/data/models/movie_model.dart';
 import 'package:movie_plex/features/home/providers/homeProvider.dart';
-import 'package:movie_plex/features/home/widgets/customNavBar.dart';
 import 'package:movie_plex/features/home/widgets/home_carousl.dart';
+import 'package:movie_plex/testing%20stuff/shimmer%20effect%20testing%20home.dart';
 import 'package:provider/provider.dart';
+
+class HomePageWrapper extends StatefulWidget {
+  const HomePageWrapper({super.key});
+
+  @override
+  State<HomePageWrapper> createState() => _HomePageWrapperState();
+}
+
+class _HomePageWrapperState extends State<HomePageWrapper> {
+  @override
+  void initState() {
+    super.initState();
+
+    // Delay shimmer for 5 seconds
+    Future.delayed(const Duration(seconds: 5), () {
+      if (mounted) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          Provider.of<Homeprovider>(context, listen: false).setLoading(false);
+          // Provider.of<Homeprovider>(context, listen: false).setAppOpenedFirstTime(false);
+        });
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final homeProvider = Provider.of<Homeprovider>(context);
+
+    return homeProvider.isLoading && homeProvider.appOpenedFirstTime
+        ? const ShimmerHomePage()
+        : const HomePage();
+  }
+}
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -13,9 +48,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeProvider = Provider.of<Homeprovider>(context);
+    homeProvider.setAppOpenedFirstTime(false);
     final size = MediaQuery.of(context).size;
 
-    // Round current page index
     final currentIndex = homeProvider.currentItem.round();
     final currentItem = Movie_Model.posterList[currentIndex];
 
@@ -28,53 +63,40 @@ class HomePage extends StatelessWidget {
         title: Text("Now Streaming", style: GoogleFonts.poppins(fontWeight: FontWeight.w700)),
       ),
       backgroundColor: Provider.of<ThemeProvider>(context).isDarkMode
-          ? Color(0xFF1a1922)
+          ? const Color(0xFF1a1922)
           : Colors.white,
       body: Stack(
         children: [
-          // Background with smooth fade
+          // Background
           Positioned.fill(
-            child: Stack(
-              children: [
-                // Previous image
-                // Background image without animation
-                // Background with fade animation
-                Positioned.fill(
-                  child: AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 800), // fade duration
-                    switchInCurve: Curves.easeInOut,
-                    switchOutCurve: Curves.easeInOut,
-                    child: Container(
-                      key: ValueKey(
-                        currentItem.img,
-                      ), // Important! ensures AnimatedSwitcher knows image changed
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(currentItem.img),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              Colors.transparent,
-                              const Color(0xFF1a1922).withAlpha((0.9 * 255).toInt()),
-                              const Color(0xFF1a1922).withAlpha(255),
-                              const Color(0xFF1a1922).withAlpha(255),
-                            ],
-                            stops: const [0.0, 0.4, 0.7, 1.0],
-                          ),
-                        ),
-                      ),
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 800),
+              switchInCurve: Curves.easeInOut,
+              switchOutCurve: Curves.easeInOut,
+              child: Container(
+                key: ValueKey(currentItem.img),
+                decoration: BoxDecoration(
+                  image: DecorationImage(image: AssetImage(currentItem.img), fit: BoxFit.cover),
+                ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.transparent,
+                        const Color(0xFF1a1922).withAlpha((0.9 * 255).toInt()),
+                        const Color(0xFF1a1922),
+                        const Color(0xFF1a1922),
+                      ],
+                      stops: const [0.0, 0.4, 0.7, 1.0],
                     ),
                   ),
                 ),
-              ],
+              ),
             ),
           ),
+
           // Carousel
           Center(
             child: SizedBox(
@@ -90,18 +112,6 @@ class HomePage extends StatelessWidget {
                   return carouslaView(index, item, homeProvider.currentItem);
                 },
               ),
-            ),
-          ),
-
-          Positioned(
-            bottom: size.height * 0.05, // stick 20px from bottom
-            left: 0,
-            right: 0,
-            child: GlassyBottomNavBar(
-              selectedIndex: homeProvider.currentPage,
-              onTap: (index) {
-                homeProvider.updateCurrentPage(index);
-              },
             ),
           ),
         ],

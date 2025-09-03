@@ -60,17 +60,26 @@ class PosterWidget extends StatelessWidget {
         const SizedBox(height: 0.03),
         Wrap(
           alignment: WrapAlignment.center,
-          spacing: 4, // horizontal spacing between items
-          runSpacing: 2, // vertical spacing between lines
+          spacing: 4,
+          runSpacing: 2,
           children: [
             Text(
               'Genre: ',
               style: textTheme.headlineMedium?.copyWith(fontSize: 15, letterSpacing: 2),
             ),
-            ...items.genre.map((g) => Text(g, style: textTheme.bodyMedium?.copyWith(fontSize: 14))),
+            ...items.genre.asMap().entries.map((entry) {
+              int idx = entry.key;
+              String g = entry.value;
+              return Text(
+                idx < items.genre.length - 1 ? "$g, " : g, // add comma except last
+                style: textTheme.bodyMedium?.copyWith(fontSize: 14),
+              );
+            }),
           ],
         ),
       ],
     );
   }
 }
+
+

@@ -12,22 +12,31 @@ class Homeprovider with ChangeNotifier {
   double _currentItem = 0.0;
   double get currentItem => _currentItem;
 
-  // Current page (to handle navbar selection)
-  int _currentPage = 0;
-  int get currentPage => _currentPage;
+  // to control shimmer effect
+  bool _isLoading = true;
+  bool get isLoading => _isLoading;
+
+// shimmer will show first time only or if data is not fetched
+  bool appOpenedFirstTime = true;
+  bool get isAppOpenedFirstTime => appOpenedFirstTime;
+
+
+  void setAppOpenedFirstTime(bool value) {
+    appOpenedFirstTime = value;
+    notifyListeners();
+  }
+
+
+  void setLoading(bool value) {
+    _isLoading = value;
+    notifyListeners();
+  }
 
   // Update current page
   void updateCurrentItem(int index) {
     _currentItem = index.toDouble();
     notifyListeners();
   }
-
-  // Update current page
-  void updateCurrentPage(int index) {
-    _currentPage = index;
-    notifyListeners();
-  }
-
 
   // Optional: attach listener to PageController to track current page continuously
   void addPageListener() {
