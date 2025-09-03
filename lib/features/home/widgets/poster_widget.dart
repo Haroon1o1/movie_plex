@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_plex/data/models/movie_model.dart';
 
 class PosterWidget extends StatelessWidget {
@@ -30,6 +31,16 @@ class PosterWidget extends StatelessWidget {
               height: h * 0.50,
               width: w * 0.7,
               decoration: BoxDecoration(
+                boxShadow: highlight
+                    ? [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.4),
+                          offset: const Offset(3, 3), // shadow position
+                          blurRadius: 5, // spread
+                          spreadRadius: 1,
+                        ),
+                      ]
+                    : [],
                 borderRadius: BorderRadius.circular(30),
                 image: DecorationImage(image: AssetImage(items.img), fit: BoxFit.fill),
               ),
@@ -39,23 +50,24 @@ class PosterWidget extends StatelessWidget {
         SizedBox(height: h * 0.03),
         Text(
           items.title,
-          style: TextStyle(
-            fontFamily: "Poppins",
-            fontWeight: FontWeight.bold,
+          style: GoogleFonts.poppins(
+            fontWeight: FontWeight.w700,
             fontSize: 24,
             letterSpacing: 2,
             color: Color.fromARGB(255, 205, 137, 42),
           ),
         ),
         const SizedBox(height: 0.03),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        Wrap(
+          alignment: WrapAlignment.center,
+          spacing: 4, // horizontal spacing between items
+          runSpacing: 2, // vertical spacing between lines
           children: [
             Text(
               'Genre: ',
               style: textTheme.headlineMedium?.copyWith(fontSize: 15, letterSpacing: 2),
             ),
-            Text(items.genre, style: textTheme.bodyMedium?.copyWith(fontSize: 14)),
+            ...items.genre.map((g) => Text(g, style: textTheme.bodyMedium?.copyWith(fontSize: 14))),
           ],
         ),
       ],

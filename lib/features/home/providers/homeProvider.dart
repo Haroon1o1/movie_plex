@@ -8,30 +8,31 @@ class Homeprovider with ChangeNotifier {
   );
   PageController get homeCarouslController => _homeCarouslController;
 
-  // Current page (double for smooth animation)
-  double _currentPage = 0.0;
-  double get currentPage => _currentPage;
+  // Current item (double for smooth animation)
+  double _currentItem = 0.0;
+  double get currentItem => _currentItem;
 
-  // Last index (for background fade)
-  int _lastIndex = 0;
-  int get lastIndex => _lastIndex;
+  // Current page (to handle navbar selection)
+  int _currentPage = 0;
+  int get currentPage => _currentPage;
+
+  // Update current page
+  void updateCurrentItem(int index) {
+    _currentItem = index.toDouble();
+    notifyListeners();
+  }
 
   // Update current page
   void updateCurrentPage(int index) {
-    _currentPage = index.toDouble();
+    _currentPage = index;
     notifyListeners();
   }
 
-  // Update last index after fade completes
-  void updateLastIndex(int index) {
-    _lastIndex = index;
-    notifyListeners();
-  }
 
   // Optional: attach listener to PageController to track current page continuously
   void addPageListener() {
     _homeCarouslController.addListener(() {
-      _currentPage = _homeCarouslController.page ?? 0.0;
+      _currentItem = _homeCarouslController.page ?? 0.0;
       notifyListeners();
     });
   }

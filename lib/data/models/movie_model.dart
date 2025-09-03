@@ -1,13 +1,13 @@
 class Movie_Model {
   final String img;
   final String title;
-  final String genre;
-  final String discription;
+  final List<String> genre;
+  final String description;
   final int price;
 
   final List<String> actorList;
   Movie_Model({
-    required this.discription,
+    required this.description,
     required this.genre,
     required this.img,
     required this.title,
@@ -17,69 +17,109 @@ class Movie_Model {
 
   static List<Movie_Model> posterList = [
     Movie_Model(
-        price: 20,
-        discription:
-            'Set in 1981, it follows Arthur Fleck, a failed clown and aspiring stand-up comic whose descent into mental illness and nihilism inspires a violent countercultural revolution against the wealthy in a decaying Gotham City.',
-        genre: 'Psyco thriller',
-        img: 'assets/img/1.jpeg',
-        title: 'Joker',
-        actorList: [
-          'assets/actorImg/p1.jpeg',
-          'assets/actorImg/p2.jpeg',
-          'assets/actorImg/p3.jpeg',
-          'assets/actorImg/p4.jpeg',
-          'assets/actorImg/p5.jpeg',
-        ]),
+      price: 20,
+      description:
+          'Unravel the mystery of a city in middle U.S.A. that imprisons everyone who enters. As the residents struggle to maintain a sense of normality and seek a way out, they must also survive the threats of the surrounding forest.',
+      genre: ['Horror', 'Thriller', 'Mystery', 'Drama'],
+      img: 'assets/img/from-season-3.jpg',
+      title: 'From - Season 3',
+      actorList: [
+        'assets/actorImg/p1.jpeg',
+        'assets/actorImg/p2.jpeg',
+        'assets/actorImg/p3.jpeg',
+        'assets/actorImg/p4.jpeg',
+        'assets/actorImg/p5.jpeg',
+      ],
+    ),
     Movie_Model(
-        price: 15,
-        discription:
-            'Wick continues his struggle against the High Table, which is the ultimate authority in the criminal world.',
-        genre: 'Action-Crime',
-        img: 'assets/img/2.jpeg',
-        title: 'John Wick 4',
-        actorList: [
-          'assets/actorImg/j1.jpeg',
-          'assets/actorImg/j2.jpeg',
-          'assets/actorImg/j3.jpeg',
-          'assets/actorImg/j4.jpeg',
-          'assets/actorImg/j5.jpeg',
-          'assets/actorImg/j6.jpeg',
-        ]),
+      price: 20,
+      description:
+          'A family saga with a supernatural twist, set in a German town where the disappearance of two young children exposes the relationships among four families.',
+      genre: ["Crime", "Drama", "Mystery", "Sci-Fi", "Thriller"],
+      img: 'assets/img/dark.jpg',
+      title: 'Dark',
+      actorList: [
+        'assets/actorImg/p1.jpeg',
+        'assets/actorImg/p2.jpeg',
+        'assets/actorImg/p3.jpeg',
+        'assets/actorImg/p4.jpeg',
+        'assets/actorImg/p5.jpeg',
+      ],
+    ),
     Movie_Model(
-        price: 12,
-        discription:
-            'It follows a couple and their baby travelling in remote Australia amid a deadly disease outbreak.',
-        genre: 'Action-Thriller',
-        img: 'assets/img/3.jpeg',
-        title: 'Cargo',
-        actorList: [
-          'assets/actorImg/c1.jpeg',
-          'assets/actorImg/c2.jpeg',
-        ]),
+      price: 20,
+      description:
+          'Vikings transports us to the brutal and mysterious world of Ragnar Lothbrok, a Viking warrior and farmer who yearns to explore--and raid--the distant shores across the ocean.',
+      genre: ["Action", "Adventure", "Drama"],
+      img: 'assets/img/vikings.jpg',
+      title: 'Vikings',
+      actorList: [
+        'assets/actorImg/p1.jpeg',
+        'assets/actorImg/p2.jpeg',
+        'assets/actorImg/p3.jpeg',
+        'assets/actorImg/p4.jpeg',
+        'assets/actorImg/p5.jpeg',
+      ],
+    ),
     Movie_Model(
-        price: 08,
-        discription:
-            'Set in the future, Harp (Damson Idris), a drone pilot, is sent into a deadly militarized zone where he finds himself working for Leo ',
-        genre: 'Scfi-Action',
-        img: 'assets/img/4a.jpeg',
-        title: 'OutSide Wire',
-        actorList: [
-          'assets/actorImg/o1.png',
-          'assets/actorImg/o2.png',
-          'assets/actorImg/o3.png',
-        ]),
+      price: 20,
+      description:
+          'After being struck by lightning, Barry Allen wakes up from his coma to discover he\'s been given the power of super speed, becoming the Flash, and fighting crime in Central City.',
+      genre: ["Action", "Adventure", "Drama", "Fantasy", "Sci-Fi"],
+      img: 'assets/img/flash.jpg',
+      title: 'The Flash',
+      actorList: [
+        'assets/actorImg/p1.jpeg',
+        'assets/actorImg/p2.jpeg',
+        'assets/actorImg/p3.jpeg',
+        'assets/actorImg/p4.jpeg',
+        'assets/actorImg/p5.jpeg',
+      ],
+    ),
     Movie_Model(
-        price: 10,
-        discription:
-            'A man desperate struggle to survie Jung-su, an ordinary car dealer, is on his way home with a birthday cake for his daughter.',
-        genre: 'Survival',
-        img: 'assets/img/5.jpeg',
-        title: 'Tunnel',
-        actorList: [
-          'assets/actorImg/t1.jpeg',
-          'assets/actorImg/t2.jpeg',
-          'assets/actorImg/t3.jpeg',
-          'assets/actorImg/t4.jpeg',
-        ]),
+      price: 20,
+      description:
+          'On the run from a drug deal gone bad, brilliant college dropout Mike Ross finds himself working with Harvey Specter, one of New York City\'s best lawyers.',
+      genre: ["Drama", "Comedy", "Romance"],
+      img: 'assets/img/suits.jpg',
+      title: 'Suits',
+      actorList: [
+        'assets/actorImg/p1.jpeg',
+        'assets/actorImg/p2.jpeg',
+        'assets/actorImg/p3.jpeg',
+        'assets/actorImg/p4.jpeg',
+        'assets/actorImg/p5.jpeg',
+      ],
+    ),
+    Movie_Model(
+      price: 20,
+      description:
+          'The story follows a high school boy named Arisu and other youths who are transported to a devastated alternate world. Trapped, they are forced to play a deadly game of survival.',
+      genre: ["Action", "Animation", "Fantasy", "Thriller", "Adventure"],
+      img: 'assets/img/alice-in-borderlands.jpg',
+      title: 'Alice in Borderlands',
+      actorList: [
+        'assets/actorImg/p1.jpeg',
+        'assets/actorImg/p2.jpeg',
+        'assets/actorImg/p3.jpeg',
+        'assets/actorImg/p4.jpeg',
+        'assets/actorImg/p5.jpeg',
+      ],
+    ),
+    Movie_Model(
+      price: 20,
+      description:
+          'Guts, a wandering mercenary, joins the Band of the Hawk after being defeated in a duel by Griffith, the group\'s leader and founder. Together, they dominate every battle, but something menacing lurks in the shadows.',
+      genre: ["Action", "Animation", "Adventure", "Thriller", "Fantasy", "Romance", "Drama"],
+      img: 'assets/img/berserk.jpg',
+      title: 'Berserk',
+      actorList: [
+        'assets/actorImg/p1.jpeg',
+        'assets/actorImg/p2.jpeg',
+        'assets/actorImg/p3.jpeg',
+        'assets/actorImg/p4.jpeg',
+        'assets/actorImg/p5.jpeg',
+      ],
+    ),
   ];
 }
