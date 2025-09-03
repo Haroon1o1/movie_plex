@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_plex/core/constants/all_provider.dart';
 import 'package:movie_plex/core/constants/app_theme.dart';
 import 'package:movie_plex/core/utils/theme_provider.dart';
-import 'package:movie_plex/features/home/screen/home_screen.dart';
-import 'package:movie_plex/testing%20stuff/shimmer%20effect%20testing%20home.dart';
+import 'package:movie_plex/features/home/screen/homeScreenWrapper.dart';
 import 'package:provider/provider.dart';
 
 void main() {
