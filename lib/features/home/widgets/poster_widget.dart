@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_plex/data/models/movie_model.dart';
+import 'package:movie_plex/features/movie_detail/screens/detail_screen.dart';
 
 class PosterWidget extends StatelessWidget {
   final Movie_Model items;
@@ -20,12 +21,7 @@ class PosterWidget extends StatelessWidget {
           tag: items.img,
           child: GestureDetector(
             onTap: () {
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //       builder: (context) =>
-              //           DetailScreen(itme: items, actorslist: items.actorList),
-              //     ));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => MovieDetailExact(movie: items,)));
             },
             child: Container(
               height: h * 0.50,
@@ -81,5 +77,3 @@ class PosterWidget extends StatelessWidget {
     );
   }
 }
-
-

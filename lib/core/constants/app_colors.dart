@@ -21,4 +21,29 @@ class AppColors {
   static const Color darkTextSecondary = Color(0xFFB0B0B0); // Gray for secondary text
   static const Color darkSecondary = Color(0xFF424242); // Dark gray for borders/icons
   static const Color darkAccent = Color(0xFFFFA726); // Accent orange for buttons/highlights
+
+  //DetailScreen Colors
+
+  // Color tokens tuned to the screenshot
+  static const Color bg = Color(0xFF0E0F14);
+  static const Color surface = Color(0xFF14161C);
+  static const Color surfaceAlt = Color(0xFF1B1F27);
+  static const Color line = Color(0xFF232833);
+  static const Color text = Color(0xFFEDEFF5);
+  static const Color subtext = Color(0xFF9AA3AE);
+  static const Color pill = Color(0xFFFFB43A);
+  // Gradient colors
+  static const List<Color> detailScreenGradient = [Color(0x191F0A00), Color(0x00000000)];
+
+  // Shadow colors
+  static const Color shadowDark = Colors.black87;
+  static const Color shadowPill = Color(0x66FFB43A);
+  static const Color shadowCard = Colors.black45;
+
+  // Additional colors you might need
+  static const Color primary = Color(0xFFFFB43A);
+  static const Color secondary = Color(0xFF1B1F27);
+  static const Color accent = Color(0xFF9AA3AE);
+  static const Color error = Color(0xFFFF5252);
+  static const Color success = Color(0xFF4CAF50);
 }
