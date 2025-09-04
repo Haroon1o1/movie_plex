@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_plex/common_widgets/customButton.dart';
 import 'package:movie_plex/core/constants/app_colors.dart';
 import 'package:movie_plex/data/models/movie_model.dart';
+import 'package:movie_plex/features/SeatBooking/screen/BookSeat.dart';
 import 'package:movie_plex/features/movie_detail/widgets/cast_widget.dart';
 import 'package:movie_plex/features/movie_detail/widgets/header.dart';
 import 'package:movie_plex/features/movie_detail/widgets/movie_gallery.dart';
@@ -171,7 +172,14 @@ class _MovieDetailExactState extends State<MovieDetailExact> with SingleTickerPr
                   ),
                   textColor: Colors.black87,
                   text: 'Buy Now',
-                  press: () {},
+                  press: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SeatSelectionScreen(movie: widget.movie),
+                      ),
+                    );
+                  },
                   size: 16,
                 ),
               ),
@@ -181,9 +189,6 @@ class _MovieDetailExactState extends State<MovieDetailExact> with SingleTickerPr
       ),
     );
   }
-
-  /// 🔹 Reusable Top Bar
-
 
   /// 🔹 Section Title
   Widget _sectionTitle(String text, {bool alignCenter = false}) {
@@ -201,7 +206,6 @@ class _MovieDetailExactState extends State<MovieDetailExact> with SingleTickerPr
     );
   }
 
-  /// 🔹 Section Text
   Widget _sectionText(String text) {
     return Text(
       text,
@@ -210,28 +214,27 @@ class _MovieDetailExactState extends State<MovieDetailExact> with SingleTickerPr
   }
 }
 
-
-  Widget buildTopBar(BuildContext context, String title) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-      child: Row(
-        children: [
-          CustomRoundIcon(
-            icon: Icons.arrow_back_ios_new_rounded,
-            onTap: () => Navigator.of(context).maybePop(),
+Widget buildTopBar(BuildContext context, String title) {
+  return Padding(
+    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+    child: Row(
+      children: [
+        CustomRoundIcon(
+          icon: Icons.arrow_back_ios_new_rounded,
+          onTap: () => Navigator.of(context).maybePop(),
+        ),
+        Spacer(),
+        Text(
+          title,
+          style: GoogleFonts.poppins(
+            color: AppColors.text,
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
           ),
-          Spacer(),
-          Text(
-            title,
-            style: GoogleFonts.poppins(
-              color: AppColors.text,
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          Spacer(),
-          CustomRoundIcon(icon: Icons.more_horiz_rounded),
-        ],
-      ),
-    );
-  }
+        ),
+        Spacer(),
+        CustomRoundIcon(icon: Icons.more_horiz_rounded),
+      ],
+    ),
+  );
+}

@@ -28,7 +28,7 @@ class _TicketWithShimmerState extends State<TicketWithShimmer> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final ticketHeight = size.height * 0.6;
+    final ticketHeight = size.height * 0.7;
     final ticketWidth = double.infinity;
 
     final now = DateTime.now();
@@ -42,11 +42,11 @@ class _TicketWithShimmerState extends State<TicketWithShimmer> {
           Center(
             child: showTicket
                 ? Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    padding: EdgeInsets.symmetric(horizontal: 30),
                     child: TicketWidget(ticket: widget.ticket),
                   )
                 : Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 20),
                     child: ClipPath(
                       clipper: TicketClipper(),
                       child: Shimmer.fromColors(
