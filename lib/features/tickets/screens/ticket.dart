@@ -63,7 +63,8 @@ class _TicketWithShimmerState extends State<TicketWithShimmer> {
           ),
           const SizedBox(height: 30),
           Visibility(
-            visible: showTicket,
+            visible: showTicket && (!widget.ticket.paid || isExpired),
+
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: CustomButton(
