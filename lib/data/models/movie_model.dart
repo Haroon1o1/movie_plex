@@ -12,6 +12,7 @@ class MovieModel {
   final String duration;
   final int price;
   final List<ActorModel> actorList;
+  final Map<String, Map<String, List<String>>> dates; // added dates
 
   MovieModel({
     required this.img,
@@ -25,12 +26,24 @@ class MovieModel {
     required this.duration,
     required this.price,
     required this.actorList,
+    required this.dates, // add to constructor
   });
 
   factory MovieModel.fromJson(Map<String, dynamic> json) {
     var actorsJson = json['actorList'] as List<dynamic>? ?? [];
     List<ActorModel> actors =
         actorsJson.map((a) => ActorModel.fromJson(a)).toList();
+
+    // Parse dates
+    Map<String, Map<String, List<String>>> parsedDates = {};
+    if (json['dates'] != null) {
+      json['dates'].forEach((key, value) {
+        parsedDates[key] = {};
+        (value as Map<String, dynamic>).forEach((date, times) {
+          parsedDates[key]![date] = List<String>.from(times);
+        });
+      });
+    }
 
     return MovieModel(
       img: json['img'] ?? '',
@@ -44,6 +57,7 @@ class MovieModel {
       duration: json['duration'] ?? '',
       price: json['price'] ?? 0,
       actorList: actors,
+      dates: parsedDates,
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_plex/core/constants/app_colors.dart';
+import 'package:movie_plex/features/allmovies/screen/allmovies.dart';
 import 'package:movie_plex/features/history/screens/history.dart';
 import 'package:movie_plex/features/home/screen/homeScreenWrapper.dart';
 
@@ -14,7 +15,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
 
-  final List<Widget> _screens = [HomePageWrapper(), TicketHistoryScreen()];
+  final List<Widget> _screens = [HomePageWrapper(), MovieListScreen(), TicketHistoryScreen()];
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +33,10 @@ class _MainScreenState extends State<MainScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              navItem(icon: Icons.movie_outlined, label: "Movies", index: 0),
-              navItem(icon: Icons.confirmation_num_outlined, label: "Tickets", index: 1),
+              navItem(icon: "assets/icons/video-icon.png", label: "Trending", index: 0),
+
+              navItem(icon: "assets/icons/video-icon.png", label: "Movies", index: 1),
+              navItem(icon: "assets/icons/watch.png", label: "Tickets", index: 2),
             ],
           ),
         ),
@@ -41,7 +44,7 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
-  Widget navItem({required IconData icon, required String label, required int index}) {
+  Widget navItem({required String icon, required String label, required int index}) {
     final isActive = _currentIndex == index;
     return Expanded(
       child: GestureDetector(
@@ -52,14 +55,14 @@ class _MainScreenState extends State<MainScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(icon, color: isActive ? AppColors.primary : Colors.grey[400]),
+              Image.asset(width: 16, icon, color: isActive ? AppColors.primary : Colors.grey[400]),
               const SizedBox(width: 8),
               Text(
                 label,
                 style: GoogleFonts.poppins(
                   color: isActive ? AppColors.primary : Colors.grey[400],
                   fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
-                  fontSize: 12,
+                  fontSize: 11,
                 ),
               ),
             ],
