@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
-import 'package:movie_plex/core/utils/theme_provider.dart';
-import 'package:movie_plex/data/models/movie_model.dart';
+import 'package:movie_plex/core/constants/app_colors.dart';
 import 'package:movie_plex/features/home/providers/homeProvider.dart';
 import 'package:movie_plex/features/home/widgets/home_carousl.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,25 +15,31 @@ class HomePage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     final currentIndex = homeProvider.currentItem.round();
-    final currentItem = Movie_Model.posterList[currentIndex];
+    final currentItem = homeProvider.movies[currentIndex];
 
     return Scaffold(
+      backgroundColor: AppColors.bg,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.transparent,
-        title: Text("Now Streaming", style: GoogleFonts.poppins(fontWeight: FontWeight.w700)),
+        title: Text(
+          "Now Streaming",
+          style: GoogleFonts.poppins(
+            color: AppColors.primary,
+            fontSize: 25,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
       ),
-      backgroundColor: Provider.of<ThemeProvider>(context).isDarkMode
-          ? const Color(0xFF1a1922)
-          : Colors.white,
+
       body: Stack(
         children: [
           // Background
           Positioned.fill(
             child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 800),
+              duration: Duration(milliseconds: 800),
               switchInCurve: Curves.easeInOut,
               switchOutCurve: Curves.easeInOut,
               child: Container(
@@ -49,11 +54,11 @@ class HomePage extends StatelessWidget {
                       end: Alignment.bottomCenter,
                       colors: [
                         Colors.transparent,
-                        const Color(0xFF1a1922).withAlpha((0.9 * 255).toInt()),
-                        const Color(0xFF1a1922),
-                        const Color(0xFF1a1922),
+                        AppColors.bg.withAlpha((0.9 * 255).toInt()),
+                        AppColors.bg,
+                        AppColors.bg,
                       ],
-                      stops: const [0.0, 0.4, 0.7, 1.0],
+                      stops: [0.0, 0.4, 0.7, 1.0],
                     ),
                   ),
                 ),
@@ -63,18 +68,21 @@ class HomePage extends StatelessWidget {
 
           // Carousel
           Center(
-            child: SizedBox(
-              height: size.height * 0.67,
-              width: size.width,
-              child: PageView.builder(
-                itemCount: Movie_Model.posterList.length,
-                physics: const BouncingScrollPhysics(),
-                controller: homeProvider.homeCarouslController,
-                onPageChanged: homeProvider.updateCurrentItem,
-                itemBuilder: (context, index) {
-                  final item = Movie_Model.posterList[index];
-                  return carouslaView(index, item, homeProvider.currentItem);
-                },
+            child: Padding(
+              padding: EdgeInsets.only(top: size.height * 0.1),
+              child: SizedBox(
+                height: size.height * 0.67,
+                width: size.width,
+                child: PageView.builder(
+                  itemCount: homeProvider.movies.length,
+                  physics: BouncingScrollPhysics(),
+                  controller: homeProvider.homeCarouslController,
+                  onPageChanged: homeProvider.updateCurrentItem,
+                  itemBuilder: (context, index) {
+                    final item = homeProvider.movies[index];
+                    return carouslaView(index, item, homeProvider.currentItem);
+                  },
+                ),
               ),
             ),
           ),

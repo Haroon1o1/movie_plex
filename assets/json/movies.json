@@ -1,0 +1,210 @@
+{
+  "movies": [
+    {
+      "img": "assets/img/from-season-3.jpg",
+      "id": "mov-1",
+      "title": "From - Season 3",
+      "videoLink": "https://www.youtube.com/watch?v=pDHqAj4eJcM&pp=ygUMZnJvbSB0cmFpbGVy",
+      "genre": ["Horror", "Thriller", "Mystery", "Drama"],
+      "images": [
+        "assets/videos/from.jpg",
+        "assets/movies/from-1.jpg",
+        "assets/movies/from-2.jpg",
+        "assets/movies/from-3.jpg",
+        "assets/movies/from-4.jpg"
+      ],
+      "description": "Unravel the mystery of a city in middle U.S.A. that imprisons everyone who enters. As the residents struggle to maintain a sense of normality and seek a way out, they must also survive the threats of the surrounding forest.",
+      "rating": "8.0 / 10",
+      "duration": "2hr 45m",
+      "price": 20,
+      "actorList": [
+        {"name": "Actor 1", "image": "assets/actorImg/p1.jpeg"},
+        {"name": "Actor 2", "image": "assets/actorImg/p2.jpeg"},
+        {"name": "Actor 3", "image": "assets/actorImg/p3.jpeg"},
+        {"name": "Actor 4", "image": "assets/actorImg/p4.jpeg"}
+      ],
+      "dates": {
+        "2D": {"2025-09-04": ["8:00 AM", "3:00 PM"], "2025-09-05": ["10:00 AM", "2:00 PM"]},
+        "3D": {"2025-09-04": ["9:00 AM", "4:00 PM"], "2025-09-05": ["11:00 AM", "5:00 PM"]}
+      }
+    },
+    {
+      "img": "assets/img/dark.jpg",
+       "id": "mov-2",
+      "title": "Dark",
+      "videoLink": "https://www.youtube.com/watch?v=pDHqAj4eJcM&pp=ygUMZnJvbSB0cmFpbGVy",
+      "genre": ["Crime", "Drama", "Mystery", "Sci-Fi", "Thriller"],
+      "images": [
+        "assets/videos/from.jpg",
+        "assets/movies/from-1.jpg",
+        "assets/movies/from-2.jpg",
+        "assets/movies/from-3.jpg",
+        "assets/movies/from-4.jpg",
+        "assets/movies/from-5.jpg",
+        "assets/movies/from-6.jpg"
+      ],
+      "description": "A family saga with a supernatural twist, set in a German town where the disappearance of two young children exposes the relationships among four families.",
+      "rating": "8.0 / 10",
+      "duration": "2hr 45m",
+      "price": 20,
+      "actorList": [
+        {"name": "Actor 1", "image": "assets/actorImg/p1.jpeg"},
+        {"name": "Actor 2", "image": "assets/actorImg/p2.jpeg"},
+        {"name": "Actor 3", "image": "assets/actorImg/p3.jpeg"},
+        {"name": "Actor 4", "image": "assets/actorImg/p4.jpeg"}
+      ],
+      "dates": {
+        "2D": {"2025-09-04": ["9:00 AM", "1:00 PM"], "2025-09-05": ["11:00 AM", "3:00 PM"]},
+        "3D": {"2025-09-04": ["10:00 AM", "2:00 PM"], "2025-09-05": ["12:00 PM", "4:00 PM"]}
+      }
+    },
+    {
+      "img": "assets/img/vikings.jpg",
+       "id": "mov-3",
+      "title": "Vikings",
+      "videoLink": "https://www.youtube.com/watch?v=pDHqAj4eJcM&pp=ygUMZnJvbSB0cmFpbGVy",
+      "genre": ["Action", "Adventure", "Drama"],
+      "images": [
+        "assets/videos/from.jpg",
+        "assets/movies/from-1.jpg",
+        "assets/movies/from-2.jpg",
+        "assets/movies/from-3.jpg",
+        "assets/movies/from-4.jpg",
+        "assets/movies/from-5.jpg",
+        "assets/movies/from-6.jpg"
+      ],
+      "description": "Vikings transports us to the brutal and mysterious world of Ragnar Lothbrok, a Viking warrior and farmer who yearns to explore--and raid--the distant shores across the ocean.",
+      "rating": "8.0 / 10",
+      "duration": "2hr 45m",
+      "price": 20,
+      "actorList": [
+        {"name": "Actor 1", "image": "assets/actorImg/p1.jpeg"},
+        {"name": "Actor 2", "image": "assets/actorImg/p2.jpeg"},
+        {"name": "Actor 3", "image": "assets/actorImg/p3.jpeg"},
+        {"name": "Actor 4", "image": "assets/actorImg/p4.jpeg"}
+      ],
+      "dates": {
+        "2D": {"2025-09-04": ["8:00 AM", "4:00 PM"], "2025-09-05": ["10:00 AM", "2:00 PM"]},
+        "3D": {"2025-09-04": ["9:00 AM", "5:00 PM"], "2025-09-05": ["11:00 AM", "3:00 PM"]}
+      }
+    },
+    {
+      "img": "assets/img/flash.jpg",
+       "id": "mov-4",
+      "title": "The Flash",
+      "videoLink": "https://www.youtube.com/watch?v=pDHqAj4eJcM&pp=ygUMZnJvbSB0cmFpbGVy",
+      "genre": ["Action", "Adventure", "Drama", "Fantasy", "Sci-Fi"],
+      "images": [
+        "assets/videos/from.jpg",
+        "assets/movies/from-1.jpg",
+        "assets/movies/from-2.jpg",
+        "assets/movies/from-3.jpg",
+        "assets/movies/from-4.jpg",
+        "assets/movies/from-5.jpg",
+        "assets/movies/from-6.jpg"
+      ],
+      "description": "After being struck by lightning, Barry Allen wakes up from his coma to discover he's been given the power of super speed, becoming the Flash, and fighting crime in Central City.",
+      "rating": "8.0 / 10",
+      "duration": "2hr 45m",
+      "price": 20,
+      "actorList": [
+        {"name": "Actor 1", "image": "assets/actorImg/p1.jpeg"},
+        {"name": "Actor 2", "image": "assets/actorImg/p2.jpeg"},
+        {"name": "Actor 3", "image": "assets/actorImg/p3.jpeg"},
+        {"name": "Actor 4", "image": "assets/actorImg/p4.jpeg"}
+      ],
+      "dates": {
+        "2D": {"2025-09-04": ["8:30 AM", "3:30 PM"], "2025-09-05": ["10:30 AM", "2:30 PM"]},
+        "3D": {"2025-09-04": ["9:30 AM", "4:30 PM"], "2025-09-05": ["11:30 AM", "5:30 PM"]}
+      }
+    },
+    {
+      "img": "assets/img/suits.jpg",
+       "id": "mov-5",
+      "title": "Suits",
+      "videoLink": "https://www.youtube.com/watch?v=pDHqAj4eJcM&pp=ygUMZnJvbSB0cmFpbGVy",
+      "genre": ["Drama", "Comedy", "Romance"],
+      "images": [
+        "assets/videos/from.jpg",
+        "assets/movies/from-1.jpg",
+        "assets/movies/from-2.jpg",
+        "assets/movies/from-3.jpg",
+        "assets/movies/from-4.jpg",
+        "assets/movies/from-5.jpg",
+        "assets/movies/from-6.jpg"
+      ],
+      "description": "On the run from a drug deal gone bad, brilliant college dropout Mike Ross finds himself working with Harvey Specter, one of New York City's best lawyers.",
+      "rating": "8.0 / 10",
+      "duration": "2hr 45m",
+      "price": 20,
+      "actorList": [
+        {"name": "Actor 1", "image": "assets/actorImg/p1.jpeg"},
+        {"name": "Actor 2", "image": "assets/actorImg/p2.jpeg"},
+        {"name": "Actor 3", "image": "assets/actorImg/p3.jpeg"},
+        {"name": "Actor 4", "image": "assets/actorImg/p4.jpeg"}
+      ],
+      "dates": {
+        "2D": {"2025-09-04": ["9:00 AM", "1:00 PM"], "2025-09-05": ["11:00 AM", "3:00 PM"]},
+        "3D": {"2025-09-04": ["10:00 AM", "2:00 PM"], "2025-09-05": ["12:00 PM", "4:00 PM"]}
+      }
+    },
+    {
+      "img": "assets/img/alice-in-borderlands.jpg",
+       "id": "mov-6",
+      "title": "Alice in Borderlands",
+      "videoLink": "https://www.youtube.com/watch?v=pDHqAj4eJcM&pp=ygUMZnJvbSB0cmFpbGVy",
+      "genre": ["Action", "Animation", "Fantasy", "Thriller", "Adventure"],
+      "images": [
+        "assets/videos/from.jpg",
+        "assets/movies/from-1.jpg",
+        "assets/movies/from-2.jpg",
+        "assets/movies/from-3.jpg",
+        "assets/movies/from-4.jpg",
+        "assets/movies/from-5.jpg",
+        "assets/movies/from-6.jpg"
+      ],
+      "description": "The story follows a high school boy named Arisu and other youths who are transported to a devastated alternate world. Trapped, they are forced to play a deadly game of survival.",
+      "rating": "8.0 / 10",
+      "duration": "2hr 45m",
+      "price": 20,
+      "actorList": [
+        {"name": "Actor 1", "image": "assets/actorImg/p1.jpeg"},
+        {"name": "Actor 2", "image": "assets/actorImg/p2.jpeg"},
+        {"name": "Actor 3", "image": "assets/actorImg/p3.jpeg"},
+        {"name": "Actor 4", "image": "assets/actorImg/p4.jpeg"}
+      ],
+      "dates": {
+        "2D": {"2025-09-04": ["8:00 AM", "3:00 PM"], "2025-09-05": ["10:00 AM", "2:00 PM"]},
+        "3D": {"2025-09-04": ["9:00 AM", "4:00 PM"], "2025-09-05": ["11:00 AM", "5:00 PM"]}
+      }
+    },
+    {
+      "img": "assets/img/berserk.jpg",
+       "id": "mov-7",
+      "title": "Berserk",
+      "videoLink": "https://www.youtube.com/watch?v=pDHqAj4eJcM&pp=ygUMZnJvbSB0cmFpbGVy",
+      "genre": ["Action", "Animation", "Adventure", "Thriller", "Fantasy", "Romance", "Drama"],
+      "images": [
+        "assets/videos/from.jpg",
+        "assets/movies/from-1.jpg",
+        "assets/movies/from-2.jpg",
+        "assets/movies/from-3.jpg",
+        "assets/movies/from-4.jpg"
+      ],
+      "description": "Guts, a wandering mercenary, joins the Band of the Hawk after being defeated in a duel by Griffith, the group's leader and founder. Together, they dominate every battle, but something menacing lurks in the shadows.",
+      "rating": "8.0 / 10",
+      "duration": "2hr 45m",
+      "price": 20,
+      "actorList": [
+        {"name": "Actor 1", "image": "assets/actorImg/p1.jpeg"},
+        {"name": "Actor 2", "image": "assets/actorImg/p2.jpeg"},
+        {"name": "Actor 3", "image": "assets/actorImg/p3.jpeg"},
+        {"name": "Actor 4", "image": "assets/actorImg/p4.jpeg"}
+      ],
+      "dates": {
+        "2D": {"2025-09-04": ["8:00 AM", "3:00 PM"], "2025-09-05": ["10:00 AM", "2:00 PM"]},
+        "3D": {"2025-09-04": ["9:00 AM", "4:00 PM"], "2025-09-05": ["11:00 AM", "5:00 PM"]}
+      }
+    }
+  ]
+}

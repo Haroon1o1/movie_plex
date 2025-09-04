@@ -1,19 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movie_plex/core/constants/app_colors.dart';
 import 'package:movie_plex/data/models/movie_model.dart';
 import 'package:movie_plex/features/movie_detail/screens/detail_screen.dart';
 
 class PosterWidget extends StatelessWidget {
-  final Movie_Model items;
-  bool highlight;
+  final MovieModel items;
+  final bool highlight;
   final int index;
-  PosterWidget({super.key, required this.index, required this.items, required this.highlight});
+
+  const PosterWidget({
+    super.key,
+    required this.index,
+    required this.items,
+    required this.highlight,
+  });
 
   @override
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
     final textTheme = Theme.of(context).textTheme;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -34,8 +42,8 @@ class PosterWidget extends StatelessWidget {
                     ? [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.4),
-                          offset: const Offset(3, 3), // shadow position
-                          blurRadius: 5, // spread
+                          offset: const Offset(3, 3),
+                          blurRadius: 5,
                           spreadRadius: 1,
                         ),
                       ]
@@ -48,34 +56,49 @@ class PosterWidget extends StatelessWidget {
         ),
 
         SizedBox(height: h * 0.03),
-        Text(
-          items.title,
-          style: GoogleFonts.poppins(
-            fontWeight: FontWeight.w700,
-            fontSize: 24,
-            letterSpacing: 2,
-            color: Color.fromARGB(255, 205, 137, 42),
+
+        // Title Fade Animation
+        AnimatedOpacity(
+          opacity: highlight ? 1.0 : 0.0,
+          duration: const Duration(milliseconds: 600),
+          curve: Curves.easeInOut,
+          child: Text(
+            items.title,
+            style: GoogleFonts.poppins(
+              fontWeight: FontWeight.w700,
+              fontSize: 24,
+              letterSpacing: 2,
+              color: AppColors.primary,
+            ),
           ),
         ),
-        const SizedBox(height: 0.03),
-        Wrap(
-          alignment: WrapAlignment.center,
-          spacing: 4,
-          runSpacing: 2,
-          children: [
-            Text(
-              'Genre: ',
-              style: textTheme.headlineMedium?.copyWith(fontSize: 15, letterSpacing: 2),
-            ),
-            ...items.genre.asMap().entries.map((entry) {
-              int idx = entry.key;
-              String g = entry.value;
-              return Text(
-                idx < items.genre.length - 1 ? "$g, " : g, // add comma except last
-                style: textTheme.bodyMedium?.copyWith(fontSize: 14),
-              );
-            }),
-          ],
+
+        const SizedBox(height: 8),
+
+        // Genre Fade Animation
+        AnimatedOpacity(
+          opacity: highlight ? 1.0 : 0.0,
+          duration: const Duration(milliseconds: 800),
+          curve: Curves.easeInOut,
+          child: Wrap(
+            alignment: WrapAlignment.center,
+            spacing: 4,
+            runSpacing: 2,
+            children: [
+              Text(
+                'Genre: ',
+                style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w600),
+              ),
+              ...items.genre.asMap().entries.map((entry) {
+                int idx = entry.key;
+                String g = entry.value;
+                return Text(
+                  idx < items.genre.length - 1 ? "$g," : g,
+                  style: GoogleFonts.poppins(fontSize: 14),
+                );
+              }),
+            ],
+          ),
         ),
       ],
     );

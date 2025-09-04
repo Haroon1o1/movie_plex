@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:movie_plex/core/constants/all_provider.dart';
 import 'package:movie_plex/core/constants/app_theme.dart';
 import 'package:movie_plex/core/utils/theme_provider.dart';
-import 'package:movie_plex/features/home/screen/homeScreenWrapper.dart';
+import 'package:movie_plex/features/history/screens/history.dart';
+import 'package:movie_plex/features/mainscreen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return MultiProvider(
       providers: AllProviders().providers,
       child: Consumer<ThemeProvider>(
@@ -24,7 +26,7 @@ class MyApp extends StatelessWidget {
             theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,
             themeMode: themeProvider.themeMode,
-            home: const HomePageWrapper(),
+            home: const MainScreen(),
           );
         },
       ),

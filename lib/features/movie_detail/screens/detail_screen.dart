@@ -4,48 +4,40 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_plex/common_widgets/customButton.dart';
 import 'package:movie_plex/core/constants/app_colors.dart';
 import 'package:movie_plex/data/models/movie_model.dart';
-import 'package:movie_plex/features/movie_detail/providers/detailProvider.dart';
-import 'package:movie_plex/features/movie_detail/widgets/StatCard.dart';
+import 'package:movie_plex/features/movie_detail/widgets/cast_widget.dart';
+import 'package:movie_plex/features/movie_detail/widgets/header.dart';
 import 'package:movie_plex/features/movie_detail/widgets/movie_gallery.dart';
 import 'package:movie_plex/features/movie_detail/widgets/roundIcons.dart';
-import 'package:provider/provider.dart';
+import 'package:movie_plex/features/movie_detail/widgets/streamingDates.dart';
 
 class MovieDetailExact extends StatefulWidget {
-  final Movie_Model movie;
+  final MovieModel movie;
 
-  const MovieDetailExact({super.key, required this.movie});
+  MovieDetailExact({super.key, required this.movie});
 
   @override
   State<MovieDetailExact> createState() => _MovieDetailExactState();
 }
 
-class _MovieDetailExactState extends State<MovieDetailExact> {
+class _MovieDetailExactState extends State<MovieDetailExact> with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
   @override
   void initState() {
     super.initState();
-    // Start listening to sensors when the widget is initialized
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // final sensorProvider = Provider.of<SensorProvider>(context, listen: false);
-      // sensorProvider.startListening();
-    });
+    _tabController = TabController(length: 3, vsync: this);
   }
 
   @override
   void dispose() {
-    // Stop listening to sensors when the widget is disposed
-    // final sensorProvider = Provider.of<SensorProvider>(context, listen: false);
-    // sensorProvider.stopListening();
+    _tabController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final w = MediaQuery.of(context).size.width;
-    final h = MediaQuery.of(context).size.height;
-    final sensorProvider = Provider.of<SensorProvider>(context);
-
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
+      value: SystemUiOverlayStyle(
         statusBarBrightness: Brightness.dark,
         statusBarIconBrightness: Brightness.light,
         statusBarColor: Colors.transparent,
@@ -53,248 +45,193 @@ class _MovieDetailExactState extends State<MovieDetailExact> {
       child: Scaffold(
         backgroundColor: AppColors.bg,
         body: SafeArea(
-          top: true,
-          bottom: true,
-          child: Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.bottomLeft,
-                end: Alignment.topRight,
-                colors: [Color(0x191F0A00), Color(0x00000000)],
-              ),
-            ),
-            child: Column(
-              children: [
-                // Top Bar
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                  child: Row(
+          child: Column(
+            children: [
+              buildTopBar(context, "Movie Detail"),
+              SizedBox(height: 8),
+
+              // Scrollable content
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CustomRoundIcon(
-                        icon: Icons.arrow_back_ios_new_rounded,
-                        onTap: () => Navigator.of(context).maybePop(),
+                      Header(context, widget.movie),
+                      SizedBox(height: 20),
+
+                      _sectionTitle(widget.movie.title, alignCenter: true),
+                      SizedBox(height: 16),
+
+                      _sectionTitle("Synopsis"),
+                      SizedBox(height: 8),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: _sectionText(widget.movie.description),
                       ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Text(
-                          'Movie Detail',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.poppins(
-                            color: AppColors.text,
-                            fontSize: 18,
-                            letterSpacing: 0.5,
-                            fontWeight: FontWeight.w600,
-                          ),
+
+                      SizedBox(height: 20),
+
+                      // 🔹 TabBar Section
+                      TabBar(
+                        controller: _tabController,
+                        isScrollable: false,
+                        indicator: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Color(0xFFfdbf07), // glass-like
                         ),
+                        indicatorSize: TabBarIndicatorSize.tab, // makes indicator cover full tab
+                        indicatorPadding: EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 4,
+                        ), // 👈 space around indicator
+                        dividerColor: AppColors.bg,
+                        labelColor: AppColors.bg,
+                        unselectedLabelColor: Colors.white70,
+                        labelStyle: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w600),
+                        unselectedLabelStyle: GoogleFonts.poppins(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w400,
+                        ),
+                        tabs: [
+                          Tab(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 8,
+                              ), // 👈 text padding inside tab
+                              child: Text("Cast"),
+                            ),
+                          ),
+                          Tab(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                              child: Text("Gallery"),
+                            ),
+                          ),
+                          Tab(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                              child: Text("Streaming"),
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(width: 12),
-                      const CustomRoundIcon(icon: Icons.more_horiz_rounded),
-                    ],
-                  ),
-                ),
-
-                const SizedBox(height: 8),
-
-                Expanded(
-                  child: SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Poster + Stats
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                      SizedBox(height: 10),
+                      SizedBox(
+                        height: 300, // Fixed height for tab content
+                        child: TabBarView(
+                          controller: _tabController,
                           children: [
-                            // Poster - fixed size
-                            SizedBox(
-                              width: w * 0.54,
-                              height: h * 0.4,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: AppColors.surface,
-                                  borderRadius: BorderRadius.circular(18),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      color: Colors.black54,
-                                      blurRadius: 24,
-                                      offset: Offset(0, 16),
-                                    ),
-                                  ],
-                                ),
-                                clipBehavior: Clip.antiAlias,
-                                child: Hero(
-                                  tag: widget.movie.img,
-                                  child: Image.asset(
-                                    widget.movie.img,
-                                    fit: BoxFit.cover,
-                                    errorBuilder: (context, error, stackTrace) {
-                                      return Container(
-                                        color: AppColors.surfaceAlt,
-                                        child: const Icon(
-                                          Icons.movie_rounded,
-                                          color: AppColors.subtext,
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ),
+                            // Cast
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 20),
+                              child: CastWidget(widget.movie),
                             ),
 
-                            const SizedBox(width: 16), // fixed spacing
-                            // Stat Cards Column - takes max available width
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.stretch, // make cards fill width
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  StatCard(
-                                    icon: "assets/icons/imdb-icon.png",
-                                    title: 'Ratings',
-                                    value: widget.movie.rating,
-                                  ),
-                                  const SizedBox(height: 12),
-                                  StatCard(
-                                    icon: "assets/icons/video-icon.png",
-                                    title: 'Genre',
-                                    value: '${widget.movie.genre[0]}',
-                                  ),
-                                  const SizedBox(height: 12),
-                                  StatCard(
-                                    icon: "assets/icons/watch.png",
-                                    title: 'Duration',
-                                    value: '${widget.movie.duration} ',
-                                  ),
-                                ],
+                            // Gallery
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 20),
+                              child: Gallery(context, widget.movie),
+                            ),
+
+                            // Streaming (Placeholder for now)
+                            Center(
+                              child: StreamingDatesWidget(
+                                dates2D: {
+                                  '2025-09-04': ['8:00 AM', '3:00 PM', '6:00 PM'],
+                                  '2025-09-05': ['10:00 AM', '2:00 PM'],
+                                },
+                                dates3D: {
+                                  '2025-09-04': ['9:00 AM', '4:00 PM'],
+                                  '2025-09-05': ['11:00 AM', '5:00 PM'],
+                                },
                               ),
                             ),
                           ],
                         ),
+                      ),
 
-                        const SizedBox(height: 22),
-
-                        Center(
-                          child: Text(
-                            widget.movie.title,
-                            style: GoogleFonts.poppins(
-                              color: AppColors.text,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-
-                        const SizedBox(height: 18),
-
-                        Text(
-                          'Synopsis',
-                          style: GoogleFonts.poppins(
-                            color: AppColors.text,
-                            fontSize: 16,
-                            letterSpacing: 0.5,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-
-                        Text(
-                          widget.movie.description,
-                          style: GoogleFonts.poppins(
-                            color: AppColors.subtext,
-                            height: 1.3,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-
-                        const SizedBox(height: 24),
-
-                        // Actors section
-                        Text(
-                          'Cast',
-                          style: GoogleFonts.poppins(
-                            color: AppColors.text,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        const SizedBox(height: 12),
-
-                        SizedBox(
-                          height: 70,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: widget.movie.actorList.length,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.only(right: 8.0),
-                                child: ClipOval(
-                                  child: Image.asset(
-                                    widget.movie.actorList[index],
-                                    width: 70, // make sure width & height are equal
-                                    height: 50,
-                                    fit: BoxFit.cover,
-                                    errorBuilder: (context, error, stackTrace) {
-                                      return Container(
-                                        width: 60,
-                                        height: 60,
-                                        color: AppColors.surfaceAlt,
-                                        child: const Icon(Icons.person, color: AppColors.subtext),
-                                      );
-                                    },
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-
-                        const SizedBox(height: 24),
-
-                        // Actors section
-                        Text(
-                          'Gallery',
-                          style: GoogleFonts.poppins(
-                            color: AppColors.text,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        const SizedBox(height: 12),
-                        Gallery(context, widget.movie),
-                        const SizedBox(height: 12),
-                      ],
-                    ),
+                      SizedBox(height: 20),
+                    ],
                   ),
                 ),
+              ),
 
-                // Bottom CTA
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: CustomButton(
-                    hasIcon: true,
-                    icon: "assets/icons/ticket.png",
-                    height: 50,
-                    gradient: LinearGradient(
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.topCenter,
-                      colors: [
-                        Color(0xFFFFA726), // base amber orange
-                        Color.fromARGB(255, 173, 93, 13), // deeper, muted burnt orange
-                      ],
-                    ),
-                    textColor: Color.fromARGB(255, 43, 43, 43),
-                    text: 'Buy Now',
-                    press: () {},
-                    size: 16,
+              // Bottom Button
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: CustomButton(
+                  hasIcon: true,
+                  icon: "assets/icons/ticket.png",
+                  height: 50,
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Color(0xFFFFA726), Color.fromARGB(255, 207, 136, 30)],
                   ),
+                  textColor: Colors.black87,
+                  text: 'Buy Now',
+                  press: () {},
+                  size: 16,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
     );
   }
+
+  /// 🔹 Reusable Top Bar
+
+
+  /// 🔹 Section Title
+  Widget _sectionTitle(String text, {bool alignCenter = false}) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      child: Text(
+        text,
+        textAlign: alignCenter ? TextAlign.center : TextAlign.start,
+        style: GoogleFonts.poppins(
+          color: AppColors.text,
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    );
+  }
+
+  /// 🔹 Section Text
+  Widget _sectionText(String text) {
+    return Text(
+      text,
+      style: GoogleFonts.poppins(color: AppColors.subtext, height: 1.4, fontSize: 13),
+    );
+  }
 }
+
+
+  Widget buildTopBar(BuildContext context, String title) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+      child: Row(
+        children: [
+          CustomRoundIcon(
+            icon: Icons.arrow_back_ios_new_rounded,
+            onTap: () => Navigator.of(context).maybePop(),
+          ),
+          Spacer(),
+          Text(
+            title,
+            style: GoogleFonts.poppins(
+              color: AppColors.text,
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          Spacer(),
+          CustomRoundIcon(icon: Icons.more_horiz_rounded),
+        ],
+      ),
+    );
+  }

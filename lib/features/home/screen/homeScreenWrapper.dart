@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 // this screen will decide whether to show shimmer effect or actual home screen based on loading state
 
 class HomePageWrapper extends StatefulWidget {
-  const HomePageWrapper({super.key});
+   HomePageWrapper({super.key});
 
   @override
   State<HomePageWrapper> createState() => _HomePageWrapperState();
@@ -19,13 +19,14 @@ class _HomePageWrapperState extends State<HomePageWrapper> {
     super.initState();
 
     // Delay shimmer for 5 seconds currently it's dummy later we'll make it dynamic when we'll use api data
+ Provider.of<Homeprovider>(context, listen: false).loadMovies();
 
-    
-    Future.delayed(const Duration(seconds: 5), () {
+    Future.delayed( Duration(seconds: 5), () {
       if (mounted) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           Provider.of<Homeprovider>(context, listen: false).setLoading(false);
           Provider.of<Homeprovider>(context, listen: false).setAppOpenedFirstTime(false);
+
         });
       }
     });
@@ -36,7 +37,7 @@ class _HomePageWrapperState extends State<HomePageWrapper> {
     final homeProvider = Provider.of<Homeprovider>(context);
 
     return homeProvider.isLoading && homeProvider.appOpenedFirstTime
-        ? const ShimmerHomePage()
-        : const HomePage();
+        ?  ShimmerHomePage()
+        :  HomePage();
   }
 }

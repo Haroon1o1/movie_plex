@@ -1,0 +1,34 @@
+{
+  "history": [
+    {
+      "movie_id": "mov-7",
+      "user_name": "Haroon Naeem",
+      "phone": "+923001234567",
+      "created_date": "2024-09-04T10:30:00",
+      "seat_number": "A12",
+      "paid": true,
+      "price": 500,
+      "movie_time": "2025-09-05T20:30:00"
+    },
+    {
+      "movie_id": "mov-2",
+      "user_name": "Ali Khan",
+      "phone": "+923009876543",
+      "created_date": "2024-09-03T18:45:00",
+      "seat_number": "B5",
+      "paid": true,
+      "price": 700,
+      "movie_time": "2025-09-02T18:45:00"
+    },
+    {
+      "movie_id": "mov-5",
+      "user_name": "Sara Ahmed",
+      "phone": "+923001112223",
+      "created_date": "2024-09-02T14:15:00",
+      "seat_number": "C8",
+      "paid": false,
+      "price": 900,
+      "movie_time": "2025-09-10T21:00:00"
+    }
+  ]
+}

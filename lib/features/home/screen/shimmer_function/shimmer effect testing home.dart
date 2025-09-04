@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_plex/core/utils/theme_provider.dart';
-import 'package:movie_plex/data/models/movie_model.dart';
 import 'package:movie_plex/features/home/providers/homeProvider.dart';
-import 'package:movie_plex/features/home/widgets/home_carousl.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -16,8 +14,6 @@ class ShimmerHomePage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     // Round current page index
-    final currentIndex = homeProvider.currentItem.round();
-    final currentItem = Movie_Model.posterList[currentIndex];
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -40,12 +36,13 @@ class ShimmerHomePage extends StatelessWidget {
               height: size.height * 0.67,
               width: size.width,
               child: PageView.builder(
-                itemCount: Movie_Model.posterList.length,
+                itemCount: 3, // dummy 3 items
                 physics: const BouncingScrollPhysics(),
                 controller: homeProvider.homeCarouslController,
                 onPageChanged: homeProvider.updateCurrentItem,
                 itemBuilder: (context, index) {
-                  final item = Movie_Model.posterList[index];
+                  // Don't access real movies for shimmer
+                  final item = null; // or create a dummy MovieModel if needed
                   return shimmerCarosal(index, item, homeProvider.currentItem);
                 },
               ),

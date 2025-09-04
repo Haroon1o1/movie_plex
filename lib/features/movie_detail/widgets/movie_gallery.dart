@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_plex/data/models/movie_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-Widget Gallery(BuildContext context, Movie_Model movie) {
+Widget Gallery(BuildContext context, MovieModel movie) {
   double w = MediaQuery.of(context).size.width;
   double spacing = 8;
 
