@@ -1,5 +1,6 @@
 import 'package:movie_plex/core/utils/theme_provider.dart';
 import 'package:movie_plex/features/SeatBooking/provider/bookingProvider.dart';
+import 'package:movie_plex/features/allmovies/provider/allMoviesProvider.dart';
 import 'package:movie_plex/features/home/providers/homeProvider.dart';
 import 'package:movie_plex/features/movie_detail/providers/detailProvider.dart';
 import 'package:provider/provider.dart';
@@ -11,5 +12,6 @@ class AllProviders {
     ChangeNotifierProvider<Homeprovider>(create: (_) => Homeprovider()),
     ChangeNotifierProvider<SensorProvider>(create: (_) => SensorProvider()),
     ChangeNotifierProvider<Bookingprovider>(create: (_) => Bookingprovider()),
+    ChangeNotifierProvider<AllMoviesProvider>(create: (_) => AllMoviesProvider()),
   ];
 }

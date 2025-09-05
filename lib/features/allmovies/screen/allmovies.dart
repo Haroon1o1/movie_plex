@@ -1,29 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movie_plex/features/allmovies/provider/allMoviesProvider.dart';
 import 'package:movie_plex/features/allmovies/widgets/gridViewMovies.dart';
 import 'package:movie_plex/features/allmovies/widgets/listVideoMovies.dart';
 import 'package:movie_plex/features/home/providers/homeProvider.dart';
 import 'package:movie_plex/features/movie_detail/screens/detail_screen.dart';
 import 'package:provider/provider.dart';
 
-class MovieListScreen extends StatefulWidget {
-  MovieListScreen({super.key});
-
-  @override
-  State<MovieListScreen> createState() => _MovieListScreenState();
-}
-
-class _MovieListScreenState extends State<MovieListScreen> {
-  String searchQuery = '';
-  bool isGridView = false; // toggle view
+class MovieListScreen extends StatelessWidget {
+  const MovieListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<Homeprovider>(context);
+    final allMoviesProvider = Provider.of<AllMoviesProvider>(context);
+    final homeProvider = Provider.of<Homeprovider>(context);
 
     // Filter movies based on search query
-    final filteredMovies = provider.movies
-        .where((movie) => movie.title.toLowerCase().contains(searchQuery.toLowerCase()))
+    final filteredMovies = homeProvider.movies
+        .where(
+          (movie) =>
+              movie.title.toLowerCase().contains(allMoviesProvider.searchQuery.toLowerCase()),
+        )
         .toList();
 
     return Scaffold(
@@ -38,12 +35,8 @@ class _MovieListScreenState extends State<MovieListScreen> {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(isGridView ? Icons.view_list : Icons.grid_view),
-            onPressed: () {
-              setState(() {
-                isGridView = !isGridView;
-              });
-            },
+            icon: Icon(allMoviesProvider.isGridView ? Icons.view_list : Icons.grid_view),
+            onPressed: () => allMoviesProvider.toggleView(),
           ),
         ],
       ),
@@ -53,19 +46,15 @@ class _MovieListScreenState extends State<MovieListScreen> {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: TextField(
-              onChanged: (value) {
-                setState(() {
-                  searchQuery = value;
-                });
-              },
-              style: TextStyle(color: Colors.white),
+              onChanged: (value) => allMoviesProvider.setSearchQuery(value),
+              style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
                 hintText: 'Search movies...',
                 hintStyle: TextStyle(color: Colors.grey[400]),
                 prefixIcon: Icon(Icons.search, color: Colors.grey[400]),
                 filled: true,
-                fillColor: Color(0xFF1a1a1a),
-                contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 16),
+                fillColor: const Color(0xFF1a1a1a),
+                contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                   borderSide: BorderSide.none,
@@ -76,7 +65,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
 
           // Movie list/grid
           Expanded(
-            child: isGridView
+            child: allMoviesProvider.isGridView
                 ? GridView.builder(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -111,8 +100,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
                     },
                   ),
           ),
-
-          SizedBox(height: 80),
+          const SizedBox(height: 80),
         ],
       ),
     );
