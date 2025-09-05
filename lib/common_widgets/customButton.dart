@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// ignore: must_be_immutable
 class CustomButton extends StatelessWidget {
   final double height;
   final Color? color;
@@ -53,7 +54,7 @@ class CustomButton extends StatelessWidget {
                   Text(
                     text,
                     style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w500,
                       fontSize: size,
                       color: textColor,
                     ),

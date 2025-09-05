@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:movie_plex/features/tickets/widgets/ticketWidget.dart';
 
 /// Single clipper for both horizontal and vertical tickets
 class TicketClipper extends CustomClipper<Path> {

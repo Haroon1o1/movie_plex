@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -18,7 +16,7 @@ Widget HistoryList(MovieModel movie, TicketModel ticket, BuildContext context) {
     onTap: () {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => TicketWithShimmer(ticket: ticket)),
+        MaterialPageRoute(builder: (context) => TicketScreen(ticket: ticket)),
       );
     },
     child: Container(
@@ -35,7 +33,7 @@ Widget HistoryList(MovieModel movie, TicketModel ticket, BuildContext context) {
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.5),
+            color: Colors.black.withAlpha((0.5 * 255).toInt()),
             blurRadius: 4,
             offset: const Offset(0, 2),
           ),

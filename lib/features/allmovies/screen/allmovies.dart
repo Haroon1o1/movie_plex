@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:movie_plex/core/constants/app_colors.dart';
-import 'package:movie_plex/data/models/movie_model.dart';
 import 'package:movie_plex/features/allmovies/widgets/gridViewMovies.dart';
 import 'package:movie_plex/features/allmovies/widgets/listVideoMovies.dart';
 import 'package:movie_plex/features/home/providers/homeProvider.dart';
 import 'package:movie_plex/features/movie_detail/screens/detail_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
 
 class MovieListScreen extends StatefulWidget {
   MovieListScreen({super.key});

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:movie_plex/core/constants/all_provider.dart';
 import 'package:movie_plex/core/constants/app_theme.dart';
 import 'package:movie_plex/core/utils/theme_provider.dart';
-import 'package:movie_plex/features/history/screens/history.dart';
 import 'package:movie_plex/features/mainscreen.dart';
 import 'package:provider/provider.dart';
 

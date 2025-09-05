@@ -66,7 +66,6 @@ Widget shimmerCarosal(int index, item, double pageOffset) {
   value = (value * 0.09).clamp(-1, 1);
   double scale = 1.0 - value.abs();
 
-  bool isCurrent = value.abs() < 0.05;
 
   return AnimatedScale(
     scale: scale,
@@ -99,7 +98,7 @@ class ShimmerPosterWidget extends StatelessWidget {
               color: Colors.orange.shade200,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.3),
+                  color:  Colors.black.withAlpha((0.3 * 255).toInt()),
                   offset: const Offset(3, 3),
                   blurRadius: 5,
                   spreadRadius: 1,

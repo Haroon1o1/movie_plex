@@ -6,15 +6,16 @@ import 'package:movie_plex/features/tickets/widgets/ticketWidget.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:movie_plex/core/constants/app_colors.dart';
 
-class TicketWithShimmer extends StatefulWidget {
+// ignore: must_be_immutable
+class TicketScreen extends StatefulWidget {
   TicketModel ticket;
-  TicketWithShimmer({super.key, required this.ticket});
+  TicketScreen({super.key, required this.ticket});
 
   @override
-  State<TicketWithShimmer> createState() => _TicketWithShimmerState();
+  State<TicketScreen> createState() => _TicketScreenState();
 }
 
-class _TicketWithShimmerState extends State<TicketWithShimmer> {
+class _TicketScreenState extends State<TicketScreen> {
   bool showTicket = false;
 
   @override

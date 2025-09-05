@@ -8,6 +8,7 @@ import 'package:movie_plex/features/tickets/widgets/ticket-info-vertical.dart';
 import 'package:movie_plex/features/tickets/widgets/ticketClipper.dart';
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class TicketWidget extends StatelessWidget {
   TicketModel ticket;
   TicketWidget({super.key, required this.ticket});
